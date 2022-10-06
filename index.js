@@ -125,12 +125,13 @@ function fuzzySearch(...args) {
  * @param {object} schema - Mongo Collection
  * @param {object} options - plugin options
  */
-module.exports = function (schema, pluginOptions, indexOverrideOptions = {}) {
+module.exports = function (schema, pluginOptions) {
   if (!pluginOptions || (pluginOptions && !pluginOptions.fields)) {
     throw new Error('You must set at least one field for fuzzy search.');
   }
 
   const { fields, middlewares } = pluginOptions;
+  const indexOverrideOptions = pluginOptions || {};
 
   if (!Array.isArray(fields)) {
     throw new TypeError('Fields must be an array.');
