@@ -125,7 +125,7 @@ function fuzzySearch(...args) {
  * @param {object} schema - Mongo Collection
  * @param {object} options - plugin options
  */
-module.exports = function (schema, pluginOptions) {
+module.exports = function (schema, pluginOptions, indexOverrideOptions = {}) {
   if (!pluginOptions || (pluginOptions && !pluginOptions.fields)) {
     throw new Error('You must set at least one field for fuzzy search.');
   }
@@ -140,7 +140,7 @@ module.exports = function (schema, pluginOptions) {
   validateMiddlewares(middlewares);
 
   const { indexes, weights } = createFields(schema, fields);
-  schema.index(indexes, { weights, name: 'fuzzy_text' });
+  schema.index(indexes, { ...indexOverrideOptions, weights, name: 'fuzzy_text' });
 
   const hideElements = removeFuzzyElements(fields);
   const { toJSON, toObject } = setTransformers(hideElements)(schema);
