@@ -131,7 +131,7 @@ module.exports = function (schema, pluginOptions) {
   }
 
   const { fields, middlewares } = pluginOptions;
-  const indexOverrideOptions = pluginOptions || {};
+  const indexOverrideOptions = pluginOptions.indexOverrideOptions || {};
 
   if (!Array.isArray(fields)) {
     throw new TypeError('Fields must be an array.');
