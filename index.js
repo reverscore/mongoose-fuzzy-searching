@@ -131,6 +131,7 @@ module.exports = function (schema, pluginOptions) {
   }
 
   const { fields, middlewares } = pluginOptions;
+  const indexOverrideOptions = pluginOptions.indexOverrideOptions || {};
 
   if (!Array.isArray(fields)) {
     throw new TypeError('Fields must be an array.');
@@ -140,7 +141,7 @@ module.exports = function (schema, pluginOptions) {
   validateMiddlewares(middlewares);
 
   const { indexes, weights } = createFields(schema, fields);
-  schema.index(indexes, { weights, name: 'fuzzy_text' });
+  schema.index(indexes, { ...indexOverrideOptions, weights, name: 'fuzzy_text' });
 
   const hideElements = removeFuzzyElements(fields);
   const { toJSON, toObject } = setTransformers(hideElements)(schema);
