@@ -95,7 +95,7 @@ function fuzzySearch(...args) {
     ? `"${queryString}"`
     : nGrams(queryString, false, defaultNgamMinSize, checkPrefixOnly).join(' ');
 
-  const { callback, options } = parseArguments(queryArgs, 1, 2);
+  const { options } = parseArguments(queryArgs, 1, 2);
 
   let search;
 
@@ -115,7 +115,6 @@ function fuzzySearch(...args) {
     search,
     { confidenceScore: { $meta: 'textScore' } },
     { sort: { confidenceScore: { $meta: 'textScore' } } },
-    callback,
   ]);
 }
 
