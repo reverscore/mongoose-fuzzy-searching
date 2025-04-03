@@ -3,8 +3,6 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 const { MongoMemoryServer } = require('mongodb-memory-server');
 
-// const mongod = await MongoMemoryServer.create();
-
 const getDBInstance = async () => MongoMemoryServer.create();
 
 const getURL = (mongod) => {
